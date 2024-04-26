@@ -14,6 +14,7 @@ export const createProductos = async (req, res) => {
     const {
       codigo,
       detalle,
+      imagen,
       color,
       categoria,
       kg_barra_estimado,
@@ -25,6 +26,7 @@ export const createProductos = async (req, res) => {
     const newProducto = new Producto({
       codigo,
       detalle,
+      imagen,
       color,
       categoria,
       kg_barra_estimado,
@@ -58,6 +60,7 @@ export const updateProductos = async (req, res) => {
     const {
       codigo,
       detalle,
+      imagen,
       color,
       categoria,
       kg_barra_estimado,
@@ -72,6 +75,7 @@ export const updateProductos = async (req, res) => {
       {
         codigo,
         detalle,
+        imagen,
         color,
         categoria,
         kg_barra_estimado,

@@ -10,6 +10,10 @@ const productosSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    imagen: {
+      type: String,
+      required: true,
+    },
     color: {
       type: String,
       required: true,
