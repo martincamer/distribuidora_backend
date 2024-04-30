@@ -1,9 +1,11 @@
 import { connect } from "mongoose";
-// import { MONGODB_URI } from "./config";
 
 export async function connectDB() {
   try {
-    const connection = await connect(`${process.env.BACKED_URL}`);
+    const connection = await connect(
+      "mongodb://localhost:27017/sistema_de_gestion" || process.env.MONGODB_URI
+    );
+    // "mongodb://mongo:ewvsSdQRijYrJpFkYnCIbviEobUslioo@monorail.proxy.rlwy.net:59925"
     console.log("Conexión a la base de datos establecida");
     return connection.connection.db;
   } catch (error) {
