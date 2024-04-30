@@ -3,7 +3,7 @@ import { connect } from "mongoose";
 
 export async function connectDB() {
   try {
-    const connection = await connect(process.env.BACKED_URL);
+    const connection = await connect(`${process.env.BACKED_URL}`);
     console.log("Conexión a la base de datos establecida");
     return connection.connection.db;
   } catch (error) {
