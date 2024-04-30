@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.routes.js";
 import productosRoutes from "./routes/productos.routes.js";
 import categoriasRoutes from "./routes/categorias.routes.js";
 import coloresRoutes from "./routes/colores.routes.js";
+import clientesRoutes from "./routes/clientes.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -48,6 +49,7 @@ connectDB()
     app.use("/api", productosRoutes);
     app.use("/api", categoriasRoutes);
     app.use("/api", coloresRoutes);
+    app.use("/api", clientesRoutes);
 
     // Iniciar el servidor
     app.listen(port, () => {
