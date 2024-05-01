@@ -10,10 +10,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { connectDB } from "./db.js";
 import { FRONTEND_URL } from "./config.js";
-// import { connectDB } from "./db.js";
 
 const app = express();
-const port = process.env.PORT || 3000; // Define el puerto del servidor
+const port = process.env.PORT || 4000; // Define el puerto del servidor
 
 // Middlewares
 app.use(
