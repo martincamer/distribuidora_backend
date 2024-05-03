@@ -16,6 +16,38 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    imagen_usuario: {
+      type: String,
+      default: "",
+    },
+    imagen_facturacion: {
+      type: String,
+      default: "",
+    },
+    dni_facturacio: {
+      type: String,
+      default: "",
+    },
+    telefono_facturacion: {
+      type: String,
+      default: "",
+    },
+    email_facturacion: {
+      type: String,
+      default: "",
+    },
+    email_facturacion: {
+      type: String,
+      default: "",
+    },
+    localidad_facturacion: {
+      type: String,
+      default: "",
+    },
+    provincia_facturacion: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

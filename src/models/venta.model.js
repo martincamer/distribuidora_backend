@@ -4,6 +4,10 @@ const ventaSchema = new mongoose.Schema(
   {
     tipo: { type: String, default: "" },
     total: { type: Number, default: 0 }, // Valor por defecto
+    estado: {
+      type: String,
+      default: "pendiente",
+    },
     productos: {
       type: Array,
       default: [],

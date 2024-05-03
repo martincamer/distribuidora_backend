@@ -5,6 +5,7 @@ import {
   deleteVenta,
   getVenta,
   updateVenta,
+  updateVentaEstado,
 } from "../controllers/venta.controllers.js"; // Importar las funciones del controlador
 import { auth } from "../middlewares/auth.middleware.js"; // Middleware de autenticación
 import { validateSchema } from "../middlewares/validator.middleware.js"; // Middleware de validación (si es necesario)
@@ -25,6 +26,8 @@ router.post(
 
 // Obtener una venta por ID
 router.get("/ventas/:id", auth, getVenta); // Autenticación y obtener venta por ID
+
+router.put("/ventas-estado/:id", auth, updateVentaEstado); // Autenticación y obtener venta por ID
 
 // Actualizar una venta por ID
 router.put("/ventas/:id", auth, updateVenta); // Autenticación y actualización por ID

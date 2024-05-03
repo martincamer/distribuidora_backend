@@ -5,6 +5,7 @@ import productosRoutes from "./routes/productos.routes.js";
 import categoriasRoutes from "./routes/categorias.routes.js";
 import coloresRoutes from "./routes/colores.routes.js";
 import clientesRoutes from "./routes/clientes.routes.js";
+import ventasRoutes from "./routes/venta.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -12,7 +13,7 @@ import { connectDB } from "./db.js";
 import { FRONTEND_URL } from "./config.js";
 
 const app = express();
-const port = process.env.PORT || 4000; // Define el puerto del servidor
+const port = process.env.PORT || 3000; // Define el puerto del servidor
 
 // Middlewares
 app.use(
@@ -49,6 +50,7 @@ connectDB()
     app.use("/api", categoriasRoutes);
     app.use("/api", coloresRoutes);
     app.use("/api", clientesRoutes);
+    app.use("/api", ventasRoutes);
 
     // Iniciar el servidor
     app.listen(port, () => {
