@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    dni_facturacio: {
+    dni_facturacion: {
       type: String,
       default: "",
     },

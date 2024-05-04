@@ -85,6 +85,12 @@ export const login = async (req, res) => {
       password: userFound.password,
       imagen: userFound.imagen_usuario,
       date: userFound.createdAt,
+      imagen_facturacion: userFound.imagen_facturacion,
+      dni_facturacion: userFound.dni_facturacion,
+      telefono_facturacion: userFound.telefono_facturacion,
+      email_facturacion: userFound.email_facturacion,
+      localidad_facturacion: userFound.localidad_facturacion,
+      provincia_facturacion: userFound.provincia_facturacion,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -108,6 +114,12 @@ export const verifyToken = async (req, res) => {
       password: userFound.password,
       imagen: userFound.imagen_usuario,
       date: userFound.createdAt,
+      imagen_facturacion: userFound.imagen_facturacion,
+      dni_facturacion: userFound.dni_facturacion,
+      telefono_facturacion: userFound.telefono_facturacion,
+      email_facturacion: userFound.email_facturacion,
+      localidad_facturacion: userFound.localidad_facturacion,
+      provincia_facturacion: userFound.provincia_facturacion,
     });
   });
 };
@@ -119,4 +131,96 @@ export const logout = async (req, res) => {
     expires: new Date(0),
   });
   return res.sendStatus(200);
+};
+
+export const editUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const {
+      imagen_facturacion,
+      dni_facturacion,
+      telefono_facturacion,
+      email_facturacion,
+      localidad_facturacion,
+      provincia_facturacion,
+    } = req.body;
+
+    // Verificar si el usuario existe
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    if (imagen_facturacion) {
+      user.imagen_facturacion = imagen_facturacion;
+    }
+
+    if (dni_facturacion) {
+      user.dni_facturacion = dni_facturacion;
+    }
+
+    if (telefono_facturacion) {
+      user.telefono_facturacion = telefono_facturacion;
+    }
+
+    if (email_facturacion) {
+      user.email_facturacion = email_facturacion;
+    }
+
+    if (localidad_facturacion) {
+      user.localidad_facturacion = localidad_facturacion;
+    }
+
+    if (provincia_facturacion) {
+      user.provincia_facturacion = provincia_facturacion;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Usuario actualizado exitosamente",
+      user: {
+        id: user._id,
+        imagen_facturacion: user.imagen_facturacion,
+        dni_facturacion: user.dni_facturacion,
+        telefono_facturacion: user.telefono_facturacion,
+        email_facturacion: user.email_facturacion,
+        localidad_facturacion: user.localidad_facturacion,
+        provincia_facturacion: user.provincia_facturacion,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const editImagenUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const { imagen_usuario } = req.body;
+
+    // Verificar si el usuario existe
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    if (imagen_usuario) {
+      user.imagen_usuario = imagen_usuario;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Imagen actualizada exitosamente",
+      user: {
+        id: user._id,
+        imagen_usuario: user.imagen_usuario,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
