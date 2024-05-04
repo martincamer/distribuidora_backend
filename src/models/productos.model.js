@@ -16,11 +16,11 @@ const productosSchema = new mongoose.Schema(
     },
     color: {
       type: String,
-      required: true,
+      default: "",
     },
     categoria: {
       type: String,
-      required: true,
+      default: "",
     },
     kg_barra_estimado: {
       type: String,

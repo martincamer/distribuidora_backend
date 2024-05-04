@@ -20,9 +20,11 @@ const clientesSchema = new mongoose.Schema(
     },
     dni: {
       type: String,
+      default: "",
     },
     email: {
       type: String,
+      default: "",
     },
     telefono: {
       type: Number,
