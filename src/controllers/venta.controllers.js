@@ -228,7 +228,7 @@ export const updateVenta = async (req, res) => {
 
         if (productoEnBD.stock < cantidadEnviada) {
           throw new Error(
-            `Stock insuficiente para el producto ${productoEnBD.detalle}`
+            `Stock insuficiente para el producto ${productoEnBD.detalle} - codigo ${productoEnBD.codigo}`
           );
         }
 
