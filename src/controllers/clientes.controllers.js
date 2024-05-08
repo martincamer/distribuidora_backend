@@ -179,3 +179,33 @@ export const getCliente = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const getComprobantesDelMensuales = async (req, res) => {
+  try {
+    // Verificar que req.user.id esté definido
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Usuario no autenticado" });
+    }
+
+    const inicioMes = dayjs().startOf("month").toDate(); // Inicio del mes actual
+    const finMes = dayjs().endOf("month").toDate(); // Fin del mes actual
+
+    // Buscar todos los clientes para el usuario autenticado
+    const clientes = await Cliente.find({ user: userId });
+
+    // Obtener todos los comprobantes del mes actual de esos clientes
+    const comprobantesDelMes = clientes.flatMap((cliente) =>
+      cliente.comprobantes.filter(
+        (comprobante) =>
+          dayjs(comprobante.date).isBetween(inicioMes, finMes, null, "[]") // Filtrar por fechas del mes actual
+      )
+    );
+
+    res.json(comprobantesDelMes); // Devolver los comprobantes del mes actual para el usuario autenticado
+  } catch (error) {
+    console.error("Error obteniendo comprobantes del mes:", error); // Manejo de errores
+    res.status(500).json({ message: "Error del servidor" }); // Responder con error 500 en caso de problemas
+  }
+};

@@ -5,6 +5,7 @@ import {
   deleteCliente,
   getCliente,
   getClientes,
+  getComprobantesDelMensuales,
   getComprobantesDelMes,
   updateCliente,
 } from "../controllers/clientes.controllers.js";
@@ -20,6 +21,12 @@ router.get("/clientes", auth, getClientes);
 router.patch("/clientes/:id/comprobantes", addComprobante); // Usa 'patch' para agregar objetos
 
 router.get("/clientes/:id/comprobantes-mes", getComprobantesDelMes);
+
+router.get(
+  "/clientes/comprobantes-mensuales",
+  auth,
+  getComprobantesDelMensuales
+);
 
 // Crear un nuevo cliente con validación de esquema
 router.post(
