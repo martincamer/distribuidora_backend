@@ -18,8 +18,8 @@ const port = process.env.PORT || 3000; // Define el puerto del servidor
 // Middlewares
 app.use(
   cors({
-    origin: FRONTEND_URL,
     credentials: true,
+    origin: FRONTEND_URL,
   })
 );
 
@@ -34,34 +34,44 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => res.json({ message: "Welcome to my API" }));
 
 // Conectar a la base de datos y luego iniciar el servidor
-connectDB()
-  .then((db) => {
-    app.get("/api/ping", async (req, res) => {
-      return res.json({ message: "Pong" });
-    });
+// connectDB()
+//   .then((db) => {
+//     app.get("/api/ping", async (req, res) => {
+//       return res.json({ message: "Pong" });
+//     });
 
-    // Middleware de error para la conexión de base de datos
-    app.use((req, res, next) => {
-      req.db = db; // Adjunta la conexión de base de datos al objeto de solicitud
-      next();
-    });
+// Middleware de error para la conexión de base de datos
+// app.use((req, res, next) => {
+//   req.db = db; // Adjunta la conexión de base de datos al objeto de solicitud
+//   next();
+// });
 
-    app.use("/api/auth", authRoutes);
-    app.use("/api", productosRoutes);
-    app.use("/api", categoriasRoutes);
-    app.use("/api", coloresRoutes);
-    app.use("/api", clientesRoutes);
-    app.use("/api", ventasRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api", productosRoutes);
+app.use("/api", categoriasRoutes);
+app.use("/api", coloresRoutes);
+app.use("/api", clientesRoutes);
+app.use("/api", ventasRoutes);
 
-    // Iniciar el servidor
-    app.listen(port, () => {
-      console.log(`Servidor corriendo en http://localhost:${port}`);
-    });
-  })
-  .catch((error) => {
-    console.error("Error al conectar a la base de datos", error);
-    process.exit(1); // Finalizar la aplicación con un código de error
+if (process.env.NODE_ENV === "production") {
+  const path = await import("path");
+  app.use(express.static("client/dist"));
+
+  app.get("*", (req, res) => {
+    console.log(path.resolve("client", "dist", "index.html"));
+    res.sendFile(path.resolve("client", "dist", "index.html"));
   });
+}
+
+// Iniciar el servidor
+// app.listen(port, () => {
+//   console.log(`Servidor corriendo en http://localhost:${port}`);
+// });
+// })
+// .catch((error) => {
+//   console.error("Error al conectar a la base de datos", error);
+//   process.exit(1); // Finalizar la aplicación con un código de error
+// });
 
 // Manejador de errores
 app.use((err, req, res, next) => {
