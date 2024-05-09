@@ -22,6 +22,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
@@ -51,16 +52,16 @@ connectDB()
     app.use("/api", coloresRoutes);
     app.use("/api", clientesRoutes);
     app.use("/api", ventasRoutes);
-
-    // Iniciar el servidor
-    app.listen(port, () => {
-      console.log(`Servidor corriendo en http://localhost:${port}`);
-    });
   })
   .catch((error) => {
     console.error("Error al conectar a la base de datos", error);
     process.exit(1); // Finalizar la aplicación con un código de error
   });
+
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
 
 // Manejador de errores
 app.use((err, req, res, next) => {
