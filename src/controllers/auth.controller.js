@@ -91,6 +91,7 @@ export const login = async (req, res) => {
       email_facturacion: userFound.email_facturacion,
       localidad_facturacion: userFound.localidad_facturacion,
       provincia_facturacion: userFound.provincia_facturacion,
+      cuenta: userFound.cuenta,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -120,6 +121,7 @@ export const verifyToken = async (req, res) => {
       email_facturacion: userFound.email_facturacion,
       localidad_facturacion: userFound.localidad_facturacion,
       provincia_facturacion: userFound.provincia_facturacion,
+      cuenta: userFound.cuenta,
     });
   });
 };
