@@ -53,6 +53,7 @@ connectDB()
     app.use("/api", clientesRoutes);
     app.use("/api", ventasRoutes);
   })
+
   .catch((error) => {
     console.error("Error al conectar a la base de datos", error);
     process.exit(1); // Finalizar la aplicación con un código de error
