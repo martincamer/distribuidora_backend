@@ -12,15 +12,15 @@ const productosSchema = new mongoose.Schema(
     },
     imagen: {
       type: String,
-      required: true,
+      default: "",
     },
     color: {
       type: String,
-      default: "",
+      required: true,
     },
     categoria: {
       type: String,
-      default: "",
+      required: true,
     },
     kg_barra_estimado: {
       type: String,
@@ -28,15 +28,15 @@ const productosSchema = new mongoose.Schema(
     },
     stock: {
       type: Number,
-      required: true,
+      default: 0,
     },
     stock_minimo: {
       type: Number,
-      required: true,
+      default: 0,
     },
     stock_maximo: {
       type: Number,
-      required: true,
+      default: 0,
     },
     date: {
       type: Date,

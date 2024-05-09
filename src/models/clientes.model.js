@@ -5,18 +5,20 @@ const clientesSchema = new mongoose.Schema(
     nombre: {
       type: String,
       required: true,
+      default: "",
     },
     apellido: {
       type: String,
       required: true,
+      default: "",
     },
     localidad: {
       type: String,
-      required: true,
+      default: "",
     },
     provincia: {
       type: String,
-      required: true,
+      default: "",
     },
     dni: {
       type: String,
@@ -28,10 +30,12 @@ const clientesSchema = new mongoose.Schema(
     },
     telefono: {
       type: Number,
+      default: "",
     },
     total: { type: Number, default: 0 }, // Valor por defecto
     comprobantes: {
       type: Array,
+      default: [],
     },
     date: {
       type: Date,

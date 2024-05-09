@@ -2,13 +2,32 @@ import Venta from "../models/venta.model.js"; // Asegúrate de tener el modelo V
 import Producto from "../models/productos.model.js"; // Modelo para productos
 import Cliente from "../models/clientes.model.js";
 import mongoose from "mongoose";
+import dayjs from "dayjs"; // Asegúrate de tener dayjs instalado y correctamente importado
 
-// Obtener todas las ventas del usuario actual
+// // Obtener todas las ventas del usuario actual
+// export const getVentas = async (req, res) => {
+//   try {
+//     // Obtiene todas las ventas del usuario actual
+//     const ventas = await Venta.find({ user: req.user.id }); // Asume que req.user.id es el ID del usuario autenticado
+//     res.json(ventas); // Devuelve las ventas encontradas
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message }); // Manejo de errores
+//   }
+// };
+
 export const getVentas = async (req, res) => {
   try {
-    // Obtiene todas las ventas del usuario actual
-    const ventas = await Venta.find({ user: req.user.id }); // Asume que req.user.id es el ID del usuario autenticado
-    res.json(ventas); // Devuelve las ventas encontradas
+    const userId = req.user.id; // ID del usuario autenticado
+
+    const inicioDelMes = dayjs().startOf("month").toDate(); // Inicio del mes actual
+    const finDelMes = dayjs().endOf("month").toDate(); // Fin del mes actual
+    // Busca las ventas del usuario actual dentro del rango del mes actual
+    const ventasMensuales = await Venta.find({
+      user: userId,
+      date: { $gte: inicioDelMes, $lte: finDelMes },
+    });
+
+    res.json(ventasMensuales); // Devuelve las ventas encontradas para el mes actual
   } catch (error) {
     return res.status(500).json({ message: error.message }); // Manejo de errores
   }
