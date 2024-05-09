@@ -13,7 +13,7 @@ import { connectDB } from "./db.js";
 import { FRONTEND_URL, PORT } from "./config.js";
 
 const app = express();
-const port = PORT || 3000; // Define el puerto del servidor
+const port = process.env.PORT || 3030; // Define el puerto del servidor
 
 // Middlewares
 app.use(
