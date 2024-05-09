@@ -18,8 +18,8 @@ const port = process.env.PORT || 3000; // Define el puerto del servidor
 // Middlewares
 app.use(
   cors({
+    origin: process.env.FRONTEND_URL,
     credentials: true,
-    origin: FRONTEND_URL,
   })
 );
 
