@@ -16,7 +16,7 @@
 // }
 
 import mongoose from "mongoose";
-import { MONGO_URL } from "./config";
+import { MONGO_URL } from "./config.js";
 
 export async function connectDB() {
   if (!MONGO_URL) {
