@@ -56,13 +56,13 @@ export const login = async (req, res) => {
 
     if (!userFound)
       return res.status(400).json({
-        message: ["The email does not exist"],
+        message: ["El email ingresado no existe"],
       });
 
     const isMatch = await bcrypt.compare(password, userFound.password);
     if (!isMatch) {
       return res.status(400).json({
-        message: ["The password is incorrect"],
+        message: ["La contraseña es incorrecta"],
       });
     }
 
@@ -72,8 +72,7 @@ export const login = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      // httpOnly: process.env.NODE_ENV !== "development",
-      httpOnly: false,
+      httpOnly: process.env.NODE_ENV !== "development",
       secure: true,
       sameSite: "none",
     });
@@ -126,9 +125,9 @@ export const verifyToken = async (req, res) => {
   });
 };
 
-export const logout = async (req, res) => {
+export const logout = async (res) => {
   res.cookie("token", "", {
-    httpOnly: true,
+    httpOnly: process.env.NODE_ENV !== "development",
     secure: true,
     expires: new Date(0),
   });

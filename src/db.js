@@ -23,21 +23,7 @@ export async function connectDB() {
     throw new Error("Please add the MONGO_URL environment variable");
   }
 
-  // if (!"mongodb://127.0.0.1:27017/sistema_de_gestion") {
-  //   throw new Error("Please add the MONGO_URL environment variable");
-  // }
-
-  // if (
-  //   !"mongodb://mongo:ewvsSdQRijYrJpFkYnCIbviEobUslioo@monorail.proxy.rlwy.net:59925"
-  // ) {
-  //   throw new Error("Please add the MONGO_URL environment variable");
-  // }
-
   mongoose.connect(MONGO_URL);
-  // mongoose.connect(
-  //   "mongodb://mongo:ewvsSdQRijYrJpFkYnCIbviEobUslioo@monorail.proxy.rlwy.net:59925"
-  // );
-  // mongoose.connect("mongodb://127.0.0.1:27017/sistema_de_gestion");
 
   const database = mongoose.connection;
 

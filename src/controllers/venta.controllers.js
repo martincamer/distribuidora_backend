@@ -4,17 +4,6 @@ import Cliente from "../models/clientes.model.js";
 import mongoose from "mongoose";
 import dayjs from "dayjs"; // Asegúrate de tener dayjs instalado y correctamente importado
 
-// // Obtener todas las ventas del usuario actual
-// export const getVentas = async (req, res) => {
-//   try {
-//     // Obtiene todas las ventas del usuario actual
-//     const ventas = await Venta.find({ user: req.user.id }); // Asume que req.user.id es el ID del usuario autenticado
-//     res.json(ventas); // Devuelve las ventas encontradas
-//   } catch (error) {
-//     return res.status(500).json({ message: error.message }); // Manejo de errores
-//   }
-// };
-
 export const getVentas = async (req, res) => {
   try {
     const userId = req.user.id; // ID del usuario autenticado

@@ -9,6 +9,40 @@ export const getProductos = async (req, res) => {
   }
 };
 
+// export const createProductos = async (req, res) => {
+//   try {
+//     const {
+//       codigo,
+//       detalle,
+//       imagen,
+//       color,
+//       categoria,
+//       kg_barra_estimado,
+//       stock,
+//       stock_minimo,
+//       stock_maximo,
+//       date,
+//     } = req.body;
+//     const newProducto = new Producto({
+//       codigo,
+//       detalle,
+//       imagen,
+//       color,
+//       categoria,
+//       kg_barra_estimado,
+//       stock,
+//       stock_minimo,
+//       stock_maximo,
+//       date,
+//       user: req.user.id,
+//     });
+//     await newProducto.save();
+//     res.json(newProducto);
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const createProductos = async (req, res) => {
   try {
     const {
@@ -23,6 +57,26 @@ export const createProductos = async (req, res) => {
       stock_maximo,
       date,
     } = req.body;
+
+    // Verificar si todos los campos requeridos están presentes
+    const requiredFields = [
+      "codigo",
+      "detalle",
+      // "imagen",
+      "color",
+      "categoria",
+      "kg_barra_estimado",
+      "stock",
+      "stock_minimo",
+      "stock_maximo",
+      "date",
+    ];
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res.status(400).json({ message: `El ${field} es necesario/a` });
+      }
+    }
+
     const newProducto = new Producto({
       codigo,
       detalle,
