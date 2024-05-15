@@ -83,6 +83,7 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       secure: true,
+      sameSite: "none",
     });
 
     res.json({
