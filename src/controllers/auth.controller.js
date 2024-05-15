@@ -75,17 +75,17 @@ export const login = async (req, res) => {
       // username: userFound.username,
     });
 
-    // res.cookie("token", token, {
-    //   httpOnly: process.env.NODE_ENV !== "development",
-    //   secure: true,
-    //   sameSite: "none",
-    // });
-
     res.cookie("token", token, {
-      // httpOnly: true,
+      httpOnly: process.env.NODE_ENV,
       secure: true,
-      // sameSite: "none",
+      sameSite: "none",
     });
+
+    // res.cookie("token", token, {
+    //   // httpOnly: true,
+    //   secure: true,
+    //   // sameSite: "none",
+    // });
 
     res.json({
       id: userFound._id,
