@@ -33,11 +33,13 @@ export const register = async (req, res) => {
       id: userSaved._id,
     });
 
-    res.cookie("token", token, {
-      httpOnly: process.env.NODE_ENV !== "development",
-      secure: true,
-      sameSite: "none",
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: process.env.NODE_ENV !== "development",
+    //   secure: true,
+    //   sameSite: "none",
+    // });
+
+    res.cookie("token", token);
 
     res.json({
       id: userSaved._id,
@@ -68,14 +70,16 @@ export const login = async (req, res) => {
 
     const token = await createAccessToken({
       id: userFound._id,
-      username: userFound.username,
+      // username: userFound.username,
     });
 
-    res.cookie("token", token, {
-      httpOnly: process.env.NODE_ENV !== "development",
-      secure: true,
-      sameSite: "none",
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: process.env.NODE_ENV !== "development",
+    //   secure: true,
+    //   sameSite: "none",
+    // });
+
+    res.cookie("token", token);
 
     res.json({
       id: userFound._id,
@@ -104,24 +108,27 @@ export const verifyToken = async (req, res) => {
   jwt.verify(token, TOKEN_SECRET, async (error, user) => {
     if (error) return res.sendStatus(401);
 
-    const userFound = await User.findById(user.id);
-    if (!userFound) return res.sendStatus(401);
+    try {
+      const userFound = await User.findById(user.id).exec();
+      if (!userFound) return res.sendStatus(401);
 
-    return res.json({
-      id: userFound._id,
-      username: userFound.username,
-      email: userFound.email,
-      password: userFound.password,
-      imagen: userFound.imagen_usuario,
-      date: userFound.createdAt,
-      imagen_facturacion: userFound.imagen_facturacion,
-      dni_facturacion: userFound.dni_facturacion,
-      telefono_facturacion: userFound.telefono_facturacion,
-      email_facturacion: userFound.email_facturacion,
-      localidad_facturacion: userFound.localidad_facturacion,
-      provincia_facturacion: userFound.provincia_facturacion,
-      cuenta: userFound.cuenta,
-    });
+      return res.json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+        imagen: userFound.imagen_usuario,
+        date: userFound.createdAt,
+        imagen_facturacion: userFound.imagen_facturacion,
+        dni_facturacion: userFound.dni_facturacion,
+        telefono_facturacion: userFound.telefono_facturacion,
+        email_facturacion: userFound.email_facturacion,
+        localidad_facturacion: userFound.localidad_facturacion,
+        provincia_facturacion: userFound.provincia_facturacion,
+        cuenta: userFound.cuenta,
+      });
+    } catch (err) {
+      return res.sendStatus(500);
+    }
   });
 };
 

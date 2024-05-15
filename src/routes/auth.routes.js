@@ -18,6 +18,6 @@ router.post("/login", validateSchema(loginSchema), login);
 router.patch("/user/:id", auth, editUser);
 router.patch("/user-img/:id", auth, editImagenUser);
 router.get("/verify", verifyToken);
-router.post("/logout", verifyToken, logout);
+router.post("/logout", logout);
 
 export default router;
