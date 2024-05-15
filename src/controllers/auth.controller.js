@@ -39,7 +39,9 @@ export const register = async (req, res) => {
     //   sameSite: "none",
     // });
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      secure: true,
+    });
 
     res.json({
       id: userSaved._id,
@@ -79,7 +81,9 @@ export const login = async (req, res) => {
     //   sameSite: "none",
     // });
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      secure: true,
+    });
 
     res.json({
       id: userFound._id,
