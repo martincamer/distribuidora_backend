@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema(
     },
     cuenta: {
       type: String,
-      default: "desactivada",
+      default: "activada",
     },
   },
   {
