@@ -8,12 +8,12 @@ export const getVentas = async (req, res) => {
   try {
     const userId = req.user.id; // ID del usuario autenticado
 
-    const inicioDelMes = dayjs().startOf("month").toDate(); // Inicio del mes actual
-    const finDelMes = dayjs().endOf("month").toDate(); // Fin del mes actual
+    // const inicioDelMes = dayjs().startOf("month").toDate(); // Inicio del mes actual
+    // const finDelMes = dayjs().endOf("month").toDate(); // Fin del mes actual
     // Busca las ventas del usuario actual dentro del rango del mes actual
     const ventasMensuales = await Venta.find({
       user: userId,
-      date: { $gte: inicioDelMes, $lte: finDelMes },
+      // date: { $gte: inicioDelMes, $lte: finDelMes },
     });
 
     res.json(ventasMensuales); // Devuelve las ventas encontradas para el mes actual
