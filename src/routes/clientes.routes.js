@@ -8,6 +8,7 @@ import {
   getComprobantesDelMensuales,
   getComprobantesDelMes,
   updateCliente,
+  updateClienteTotal,
 } from "../controllers/clientes.controllers.js";
 import { auth } from "../middlewares/auth.middleware.js";
 import { validateSchema } from "../middlewares/validator.middleware.js";
@@ -44,5 +45,8 @@ router.put("/clientes/:id", auth, updateCliente);
 
 // Eliminar un cliente por su ID
 router.delete("/clientes/:id", auth, deleteCliente);
+
+// Actualizar solo el campo 'total' de un cliente por su ID
+router.patch("/clientes/:id/total", auth, updateClienteTotal); // Nueva ruta
 
 export default router;

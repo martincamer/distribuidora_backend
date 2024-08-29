@@ -175,18 +175,66 @@ export const createVenta = async (req, res) => {
   }
 };
 
-// Eliminar una venta por ID
 export const deleteVenta = async (req, res) => {
   try {
-    const deletedVenta = await Venta.findByIdAndDelete(req.params.id); // Elimina la venta por ID
-    if (!deletedVenta)
-      return res.status(404).json({ message: "Venta no encontrada" });
+    // Buscar la venta por ID con los productos y cliente poblados
+    const venta = await Venta.findById(req.params.id).populate(
+      "productos cliente"
+    );
+
+    if (!venta) return res.status(404).json({ message: "Venta no encontrada" });
+
+    if (venta.tipo === "venta") {
+      // Recuperar los productos asociados a la venta
+      const productos = venta.productos;
+
+      // Recuperar el cliente desde el objeto completo de la venta
+      const cliente = venta.cliente;
+
+      // Verificar si el cliente está presente
+      if (!cliente) {
+        return res.status(404).json({ message: "Cliente no encontrado" });
+      }
+
+      // Recuperar el stock de los productos
+      for (const producto of productos) {
+        const productoEnBD = await Producto.findById(producto._id);
+        if (!productoEnBD) {
+          console.error(`Producto con ObjectId ${producto._id} no encontrado.`);
+          continue;
+        }
+        productoEnBD.stock += Number(producto.cantidad);
+        await productoEnBD.save(); // Guardar el producto con el stock actualizado
+      }
+
+      // Actualizar el total del cliente
+      cliente.total -= Number(venta.total);
+      if (cliente.total < 0) cliente.total = 0; // Evitar valores negativos
+
+      await cliente.save(); // Guardar el cliente con el total actualizado
+    }
+
+    // Eliminar la venta
+    await Venta.findByIdAndDelete(req.params.id);
 
     return res.sendStatus(204); // Retorna sin contenido si se elimina correctamente
   } catch (error) {
+    console.error("Error al eliminar venta:", error);
     return res.status(500).json({ message: error.message }); // Manejo de errores
   }
 };
+// // Eliminar una venta por ID
+// export const deleteVenta = async (req, res) => {
+//   try {
+//     const deletedVenta = await Venta.findByIdAndDelete(req.params.id); // Elimina la venta por ID
+//     if (!deletedVenta)
+//       return res.status(404).json({ message: "Venta no encontrada" });
+
+//     return res.sendStatus(204); // Retorna sin contenido si se elimina correctamente
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message }); // Manejo de errores
+//   }
+// };
 
 export const updateVenta = async (req, res) => {
   try {

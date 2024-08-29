@@ -26,6 +26,11 @@ const productosSchema = new mongoose.Schema(
       required: true,
       default: "",
     },
+    tipo: {
+      type: String,
+      required: true,
+      default: "",
+    },
     kg_barra_estimado: {
       type: String,
       required: true,
@@ -56,5 +61,15 @@ const productosSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Pre-save hook to convert string fields to uppercase
+productosSchema.pre("save", function (next) {
+  if (this.isModified("codigo")) this.codigo = this.codigo.toUpperCase();
+  if (this.isModified("detalle")) this.detalle = this.detalle.toUpperCase();
+  if (this.isModified("color")) this.color = this.color.toUpperCase();
+  if (this.isModified("categoria"))
+    this.categoria = this.categoria.toUpperCase();
+  next();
+});
 
 export default mongoose.model("Producto", productosSchema);

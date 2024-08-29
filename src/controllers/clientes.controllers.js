@@ -209,3 +209,27 @@ export const getComprobantesDelMensuales = async (req, res) => {
     res.status(500).json({ message: "Error del servidor" }); // Responder con error 500 en caso de problemas
   }
 };
+
+// Actualizar solo el campo 'total' de un cliente por su ID
+export const updateClienteTotal = async (req, res) => {
+  try {
+    const { total } = req.body;
+
+    if (total === undefined) {
+      return res.status(400).json({ message: "El campo 'total' es requerido" });
+    }
+
+    const clienteActualizado = await Cliente.findByIdAndUpdate(
+      req.params.id,
+      { total },
+      { new: true }
+    );
+
+    if (!clienteActualizado)
+      return res.status(404).json({ message: "Cliente no encontrado" });
+
+    return res.json(clienteActualizado);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

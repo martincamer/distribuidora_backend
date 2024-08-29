@@ -9,45 +9,12 @@ export const getProductos = async (req, res) => {
   }
 };
 
-// export const createProductos = async (req, res) => {
-//   try {
-//     const {
-//       codigo,
-//       detalle,
-//       imagen,
-//       color,
-//       categoria,
-//       kg_barra_estimado,
-//       stock,
-//       stock_minimo,
-//       stock_maximo,
-//       date,
-//     } = req.body;
-//     const newProducto = new Producto({
-//       codigo,
-//       detalle,
-//       imagen,
-//       color,
-//       categoria,
-//       kg_barra_estimado,
-//       stock,
-//       stock_minimo,
-//       stock_maximo,
-//       date,
-//       user: req.user.id,
-//     });
-//     await newProducto.save();
-//     res.json(newProducto);
-//   } catch (error) {
-//     return res.status(500).json({ message: error.message });
-//   }
-// };
-
 export const createProductos = async (req, res) => {
   try {
     const {
       codigo,
       detalle,
+      tipo,
       imagen,
       color,
       categoria,
@@ -62,6 +29,7 @@ export const createProductos = async (req, res) => {
     const requiredFields = [
       "codigo",
       "detalle",
+      "tipo",
       // "imagen",
       "color",
       "categoria",
@@ -80,6 +48,7 @@ export const createProductos = async (req, res) => {
     const newProducto = new Producto({
       codigo,
       detalle,
+      tipo,
       imagen,
       color,
       categoria,
@@ -114,6 +83,7 @@ export const updateProductos = async (req, res) => {
     const {
       codigo,
       detalle,
+      tipo,
       imagen,
       color,
       categoria,
@@ -129,6 +99,7 @@ export const updateProductos = async (req, res) => {
       {
         codigo,
         detalle,
+        tipo,
         imagen,
         color,
         categoria,
